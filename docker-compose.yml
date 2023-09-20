@@ -1,0 +1,19 @@
+version: "3"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    container_name: server
+    tty: true
+    volumes:
+      - ./server/src:/app/src/
+    ports:
+      - "8080:8080"
+    networks:
+      - server_nw
+
+networks:
+  server_nw:
+    external: true
+
