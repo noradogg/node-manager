@@ -7,13 +7,29 @@ services:
     container_name: server
     tty: true
     volumes:
-      - ./server/src:/app/src/
+      - ./server/app:/app
     ports:
       - "8080:8080"
     networks:
       - server_nw
 
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    container_name: client
+    tty: true
+    volumes:
+      - ./client/app:/app
+    ports:
+      - "5173:5173"
+    networks:
+      - server_nw
+      - app_nw
+
 networks:
   server_nw:
+    external: true
+  app_nw:
     external: true
 
